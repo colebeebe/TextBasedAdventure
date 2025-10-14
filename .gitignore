@@ -1,3 +1,29 @@
-/.DS_Store
-/bin
-/obj
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code settings
+.vscode/
+
+# Mac system files
+.DS_Store
+
+# Logs
+*.log
+
+# .NET Core build artifacts
+project.lock.json
+project.fragment.lock.json
+
+# Publish output
+**/publish/
+
+# Other temporary files
+*.tmp
+*.temp
