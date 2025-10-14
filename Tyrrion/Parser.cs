@@ -60,6 +60,10 @@ public class Parser {
             return context => Console.WriteLine(_responses[i]);
         }
 
+        if (words[0].ToLower() == "look") {
+            return context => context.PrintRoom(true);
+        }
+
         return context => {
             foreach (string word in words) {
                 Console.WriteLine(word);

@@ -1,7 +1,7 @@
 {
   "name": "Front Door",
   "identifier": "frontDoor",
-  "description": "The front door of the house. It could be assumed that one would normally enter through here.",
+  "description": "The front door of the house is old and has peeling paint. It could be assumed that one would normally enter through it.",
   "actions": {
     "take": "What? Bust it right off its hinges?",
     "go": "You run headlong into the door. It doesn't budge.",
@@ -11,5 +11,9 @@
   "alternatives": [
     "door",
     "entryway"
+  ],
+  "states": [
+    "open",
+    "closed"
   ]
 }

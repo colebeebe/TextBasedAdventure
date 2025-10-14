@@ -13,24 +13,23 @@ public class GameContext {
     public bool HasWon;
     private string _currentRoom = "";
     private readonly Dictionary<string, Room> _gameRooms;
+    private readonly Dictionary<string, Item> _gameItems;
+    private readonly Dictionary<string, Object> _gameObjects;
     public GameContext() {
         HasWon = false;
 
-        _gameRooms = [];
-        LoadAllRooms();
         LoadSettings();
 
-        if (_gameRooms.TryGetValue(_currentRoom, out Room? value)) {
-            var curr = value;
-            Console.WriteLine();
-            Console.WriteLine(curr.Name.ToUpper());
-            Console.WriteLine();
-            if (!curr.Visited) {
-                Console.WriteLine(curr.Description);
-                Console.WriteLine();
-                curr.Visited = true;
-            }
-        }
+        _gameRooms = [];
+        _gameItems = [];
+        _gameObjects = [];
+
+        LoadAllRooms();
+        LoadAllItems();
+        LoadAllObjects();
+
+        PrintRoom();
+
     }
 
     public void MoveRoom(Directions dir) {
@@ -42,17 +41,8 @@ public class GameContext {
                 }
             }
         }
-        if (_gameRooms.TryGetValue(_currentRoom, out Room? value)) {
-            curr = value;
-            Console.WriteLine();
-            Console.WriteLine(curr.Name.ToUpper());
-            Console.WriteLine();
-            if (!curr.Visited) {
-                Console.WriteLine(curr.Description);
-                Console.WriteLine();
-                curr.Visited = true;
-            }
-        }
+
+        PrintRoom();
     }
 
     private void LoadAllRooms()
@@ -90,6 +80,64 @@ public class GameContext {
             }
         }
     }
+
+    private void LoadAllItems() {
+        var path = _resDir + "Items";
+
+        Debug.Assert(Directory.Exists(path), "Items directory does not exist.");
+
+        var options = new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true
+        };
+        options.Converters.Add(new JsonStringEnumConverter());
+
+        string[] files = Directory.GetFiles(path);
+        foreach (var filepath in files) {
+            try {
+                string jsonContent = File.ReadAllText(filepath);
+                JsonDocument.Parse(jsonContent);
+                var item = JsonSerializer.Deserialize<Item>(jsonContent, options);
+                if (item != null) {
+                    _gameItems.Add(item.Identifier, item);
+                }
+            }
+            catch (JsonException) {
+                Console.WriteLine($"INVALID JSON: {Path.GetFileName(filepath)}");
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"ERROR reading file {Path.GetFileName(filepath)}: {ex.Message}");
+            }
+        }
+    }
+
+    private void LoadAllObjects() {
+        var path = _resDir + "Objects";
+
+        Debug.Assert(Directory.Exists(path), "Objects directory does not exist.");
+
+        var options = new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true
+        };
+        options.Converters.Add(new JsonStringEnumConverter());
+
+        string[] files = Directory.GetFiles(path);
+        foreach (var filepath in files) {
+            try {
+                string jsonContent = File.ReadAllText(filepath);
+                JsonDocument.Parse(jsonContent);
+                var obj = JsonSerializer.Deserialize<Object>(jsonContent, options);
+                if (obj != null) {
+                    _gameObjects.Add(obj.Identifier, obj);
+                }
+            }
+            catch (JsonException) {
+                Console.WriteLine($"INVALID JSON: {Path.GetFileName(filepath)}");
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"ERROR reading file {Path.GetFileName(filepath)}: {ex.Message}");
+            }
+        }
+    }
     
     private void LoadSettings() {
         var path = _resDir + "settings.json";
@@ -114,4 +162,54 @@ public class GameContext {
             Console.WriteLine($"ERROR reading file {Path.GetFileName(path)}: {ex.Message}");
         }
     }
+    
+    public void PrintRoom(bool showDescription = false) {
+        if (_gameRooms.TryGetValue(_currentRoom, out Room? value)) {
+            var curr = value;
+            Console.WriteLine();
+            Console.WriteLine(curr.Name.ToUpper());
+            Console.WriteLine();
+            if (!curr.Visited || showDescription) {
+                var description = curr.Description;
+                foreach (var obj in curr.Objects) {
+                    if (_gameObjects.TryGetValue(obj, out Object? roomObject)) {
+                        description += " " + roomObject?.Description;
+                    }
+                }
+                foreach (var item in curr.Items) {
+                    if (_gameItems.TryGetValue(item, out Item? roomItem)) {
+                        description += " " + roomItem.Description;
+                    }
+                }
+                WrapText(description);
+                Console.WriteLine();
+                curr.Visited = true;
+            }
+        }
+    }
+
+    static void WrapText(string text) {
+        int width = Console.WindowWidth - 1; // Subtract 1 for safety
+        string[] words = text.Split(' ');
+        int currentLineLength = 0;
+
+        foreach (var word in words) {
+            if (currentLineLength + word.Length + 1 > width) {
+                Console.WriteLine();
+                currentLineLength = 0;
+            }
+
+            if (currentLineLength > 0) {
+                Console.Write(" ");
+                currentLineLength++;
+            }
+
+            Console.Write(word);
+            currentLineLength += word.Length;
+        }
+
+        Console.WriteLine();
+    }
+
 }
+

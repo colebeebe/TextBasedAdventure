@@ -15,5 +15,9 @@
   "alternatives": [
     "letterbox",
     "postbox"
+  ],
+  "states": [
+    "open",
+    "closed"
   ]
 }
