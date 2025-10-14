@@ -57,7 +57,7 @@ public class Parser {
         if (!_verbs.Contains(words[0].ToLower())) {
             Random random = new();
             var i = random.Next(_responses.Length);
-            return context => Console.WriteLine(_responses[i]);
+            return context => Console.WriteLine("\n" + _responses[i] + "\n");
         }
 
         if (words[0].ToLower() == "look") {

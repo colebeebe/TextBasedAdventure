@@ -4,7 +4,7 @@
   "items": [
     "leaflet"
   ],
-  "description": "An old mailbox is crookedly planted in the ground near you.",
+  "description": "A decrepit-looking mailbox is crookedly planted in the ground near you.",
   "actions": {
     "look": "It's an old, white mailbox with numbers painted on the side.",
     "take": "Try as you might, the mailbox doesn't seem to want to come out of the ground. For some reason I don't think it would be that much use anyway.",
