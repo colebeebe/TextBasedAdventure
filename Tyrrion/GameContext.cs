@@ -109,5 +109,9 @@ public class GameContext {
         catch (JsonException) {
             Console.WriteLine($"INVALID SETTINGS JSON: {Path.GetFileName(path)}");
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR reading file {Path.GetFileName(path)}: {ex.Message}");
+        }
     }
 }
