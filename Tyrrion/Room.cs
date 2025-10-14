@@ -9,7 +9,7 @@ public class Room {
     public Dictionary<string, string> Actions { get; set; } = [];
     public List<Exit> Exits { get; set; } = [];
 
-    public bool Visited = false;
+    public bool Visited { get; set; } = false;
 }
 
 public class Exit {
