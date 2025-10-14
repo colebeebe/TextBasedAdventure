@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -10,22 +11,14 @@ public class GameContext {
         "../../../Resources/");
 
     public bool HasWon;
-    private string _currentRoom;
+    private string _currentRoom = "";
     private readonly Dictionary<string, Room> _gameRooms;
     public GameContext() {
         HasWon = false;
 
         _gameRooms = [];
-        var room = LoadRoom("northOfHouse");
-        if (room != null) {
-            _gameRooms.Add(room.Identifier, room);
-        }
-        room = LoadRoom("frontRoom");
-        if (room != null) {
-            _gameRooms.Add(room.Identifier, room);
-        }
-
-        _currentRoom = "northOfHouse";
+        LoadAllRooms();
+        LoadSettings();
 
         if (_gameRooms.TryGetValue(_currentRoom, out Room? value)) {
             var curr = value;
@@ -62,14 +55,59 @@ public class GameContext {
         }
     }
 
-    private Room? LoadRoom(string roomName) {
-        var path = _resDir + "Rooms/" + roomName + ".json";
-        var json = File.ReadAllText(path);
-        var options = new JsonSerializerOptions {
-           PropertyNameCaseInsensitive = true
+    private void LoadAllRooms()
+    {
+        var path = _resDir + "Rooms";
+
+        Debug.Assert(Directory.Exists(path), "Rooms directory does not exist.");
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
         };
         options.Converters.Add(new JsonStringEnumConverter());
-        Room? room = JsonSerializer.Deserialize<Room>(json, options);
-        return room;
+
+        string[] files = Directory.GetFiles(path);
+        foreach (var filepath in files)
+        {
+            try
+            {
+                string jsonContent = File.ReadAllText(filepath);
+                JsonDocument.Parse(jsonContent);
+                var room = JsonSerializer.Deserialize<Room>(jsonContent, options);
+                if (room != null)
+                {
+                    _gameRooms.Add(room.Identifier, room);
+                }
+            }
+            catch (JsonException)
+            {
+                Console.WriteLine($"INVALID JSON: {Path.GetFileName(filepath)}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR reading file {Path.GetFileName(filepath)}: {ex.Message}");
+            }
+        }
+    }
+    
+    private void LoadSettings() {
+        var path = _resDir + "settings.json";
+
+        Debug.Assert(File.Exists(path), "JSON file for settings does not exist.");
+
+        try {
+            string jsonContent = File.ReadAllText(path);
+            var settings = JsonDocument.Parse(jsonContent).RootElement;
+            if (settings.TryGetProperty("startRoom", out var startRoomElement))
+            {
+                var startRoom = startRoomElement.GetString();
+                Debug.Assert(startRoom != null, "ERROR: No start room defined in settings.json.");
+                _currentRoom = startRoom;
+            }
+        }
+        catch (JsonException) {
+            Console.WriteLine($"INVALID SETTINGS JSON: {Path.GetFileName(path)}");
+        }
     }
 }
