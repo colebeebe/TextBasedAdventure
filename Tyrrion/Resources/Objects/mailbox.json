@@ -1,0 +1,19 @@
+{
+  "name": "Mailbox",
+  "identifier": "mailbox",
+  "items": [
+    "leaflet"
+  ],
+  "description": "An old mailbox is crookedly planted in the ground near you.",
+  "actions": {
+    "look": "It's an old, white mailbox with numbers painted on the side.",
+    "take": "Try as you might, the mailbox doesn't seem to want to come out of the ground. For some reason I don't think it would be that much use anyway.",
+    "go": "No offense, but you'd never fit!",
+    "read": "You can make out a 4, 9, 2, 0, and N (in that order) but that's about it."
+  },
+  "capacity": 4,
+  "alternatives": [
+    "letterbox",
+    "postbox"
+  ]
+}

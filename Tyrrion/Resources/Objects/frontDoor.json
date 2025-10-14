@@ -1,0 +1,15 @@
+{
+  "name": "Front Door",
+  "identifier": "frontDoor",
+  "description": "The front door of the house. It could be assumed that one would normally enter through here.",
+  "actions": {
+    "take": "What? Bust it right off its hinges?",
+    "go": "You run headlong into the door. It doesn't budge.",
+    "open": "You try the handle, but alas. It's locked."
+  },
+  "capacity": 0,
+  "alternatives": [
+    "door",
+    "entryway"
+  ]
+}

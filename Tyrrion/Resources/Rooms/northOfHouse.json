@@ -1,0 +1,29 @@
+{
+  "name": "North of House",
+  "identifier": "northOfHouse",
+  "objects": [
+    "mailbox",
+    "frontDoor"
+  ],
+  "items": [
+    "welcomeMat"
+  ],
+  "description": "You are on the north side of a large house that seems to be unoccupied.",
+  "actions": {
+    "look": "There's not much more you can glean from looking closer at the house. It's just a large house from what you can tell.",
+    "take": "Please. And put it where, exactly? That is to say, if you could even somehow take it in the first place."
+  },
+  "exits": [
+    {
+      "direction": "south",
+      "destination": "frontRoom",
+      "conditions": [
+        {
+          "type": "objectState",
+          "object": "frontDoor",
+          "state": "open"
+        }
+      ]
+    }
+  ]
+}

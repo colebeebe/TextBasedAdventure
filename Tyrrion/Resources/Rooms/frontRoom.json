@@ -1,0 +1,28 @@
+{
+  "name": "Front Room",
+  "identifier": "frontRoom",
+  "objects": [
+    "oldLadyPainting",
+    "grandfatherClock"
+  ],
+  "items": [
+
+  ],
+  "description": "You are in what appears to be the front receiving area of the house.",
+  "actions": {
+    "look": "The room is spacious and contains many portraits, but none seem to be too relevant, and you probably won't glean anything from studying any of them."
+  },
+  "exits": [
+    {
+      "direction": "north",
+      "destination": "northOfHouse",
+      "conditions": [
+        {
+          "type": "objectState",
+          "object": "frontDoor",
+          "state": "open"
+        }
+      ]
+    }
+  ]
+}

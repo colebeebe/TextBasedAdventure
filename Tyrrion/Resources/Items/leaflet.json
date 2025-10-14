@@ -1,0 +1,19 @@
+{
+  "name": "Leaflet",
+  "identifier": "leaflet",
+  "description": "A small leaflet. Looks like it would be useful to read!",
+  "actions": {
+    "read": "*Text about Tyrrion goes here*",
+    "take": "Taken.",
+    "go": "As cool as it would be to blue skidoo into the leaflet, it's just not possible."
+  },
+  "capacity": 0,
+  "size": 1,
+  "alternatives": [
+    "pamphlet",
+    "manual",
+    "instructions",
+    "brochure",
+    "flyer"
+  ]
+}
