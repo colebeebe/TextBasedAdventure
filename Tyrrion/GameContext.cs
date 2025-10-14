@@ -15,6 +15,7 @@ public class GameContext {
     private readonly Dictionary<string, Room> _gameRooms;
     private readonly Dictionary<string, Item> _gameItems;
     private readonly Dictionary<string, Object> _gameObjects;
+    private readonly Dictionary<string, Item> _inventory;
     public GameContext() {
         HasWon = false;
 
@@ -23,6 +24,7 @@ public class GameContext {
         _gameRooms = [];
         _gameItems = [];
         _gameObjects = [];
+        _inventory = [];
 
         LoadAllRooms();
         LoadAllItems();
@@ -162,22 +164,29 @@ public class GameContext {
             Console.WriteLine($"ERROR reading file {Path.GetFileName(path)}: {ex.Message}");
         }
     }
-    
-    public void PrintRoom(bool showDescription = false) {
-        if (_gameRooms.TryGetValue(_currentRoom, out Room? value)) {
+
+    public void PrintRoom(bool showDescription = false)
+    {
+        if (_gameRooms.TryGetValue(_currentRoom, out Room? value))
+        {
             var curr = value;
             Console.WriteLine();
             Console.WriteLine(curr.Name.ToUpper());
             Console.WriteLine();
-            if (!curr.Visited || showDescription) {
+            if (!curr.Visited || showDescription)
+            {
                 var description = curr.Description;
-                foreach (var obj in curr.Objects) {
-                    if (_gameObjects.TryGetValue(obj, out Object? roomObject)) {
+                foreach (var obj in curr.Objects)
+                {
+                    if (_gameObjects.TryGetValue(obj, out Object? roomObject))
+                    {
                         description += " " + roomObject?.Description;
                     }
                 }
-                foreach (var item in curr.Items) {
-                    if (_gameItems.TryGetValue(item, out Item? roomItem)) {
+                foreach (var item in curr.Items)
+                {
+                    if (_gameItems.TryGetValue(item, out Item? roomItem))
+                    {
                         description += " " + roomItem.Description;
                     }
                 }
@@ -185,6 +194,26 @@ public class GameContext {
                 Console.WriteLine();
                 curr.Visited = true;
             }
+        }
+    }
+    
+    public void LookAt(string name) {
+        var room = _gameRooms[_currentRoom];
+        if (room.Objects.Contains(name)) {
+            if (_gameObjects.TryGetValue(name, out var obj)) {
+                if (obj.Actions.TryGetValue("look", out var desc)) {
+                    Console.WriteLine("\n" + desc + "\n");
+                }
+                else {
+                    Console.WriteLine($"\nThere doesn't seem to be anything of note about the {obj.Name.ToLower()}\n");
+                }
+            }
+            else {
+                Debug.Assert(true, "ERROR: Object does not exist in objects folder.");
+            }
+        }
+        else {
+            Console.WriteLine("\nI don't seem to be able to see that here.\n");
         }
     }
 
