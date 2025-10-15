@@ -1,0 +1,18 @@
+{
+  "name": "Up the Tree",
+  "identifier": "upTheTree",
+  "objects": [
+  ],
+  "items": [
+  ],
+  "description": "You scramble up the tree. Once you've gone a decent way up, you sit on one of the branches, which bends under your weight, signalling that you are as high as you're going to get. What did you expect to find, a jewel-encrusted egg?",
+  "actions": {
+
+  },
+  "exits": [
+    {
+      "direction": "down",
+      "destination": "forestPath"
+    }
+  ]
+}

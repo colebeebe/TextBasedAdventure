@@ -3,10 +3,11 @@
   "identifier": "northOfHouse",
   "objects": [
     "mailbox",
-    "frontDoor"
+    "frontDoor",
+    "welcomeMat"
   ],
   "items": [
-    "welcomeMat"
+    
   ],
   "description": "You are on the north side of a large house that seems to be unoccupied.",
   "actions": {
@@ -24,6 +25,10 @@
           "state": "open"
         }
       ]
+    },
+    {
+      "direction": "west",
+      "destination": "westOfHouse"
     }
   ]
 }

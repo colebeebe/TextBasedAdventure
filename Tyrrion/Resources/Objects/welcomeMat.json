@@ -1,0 +1,15 @@
+{
+  "name": "Welcome Mat",
+  "identifier": "welcomeMat",
+  "description": "A well-used and threadbare welcome mat is at your feet.",
+  "actions": {
+    "take": "You don't really want to touch that thing with your hands.",
+    "look": "You can't make out the words on the mat, but it's likely that it said welcome at one point."
+  },
+  "capacity": 0,
+  "alternatives": [
+    "mat"
+  ],
+  "states": [
+  ]
+}

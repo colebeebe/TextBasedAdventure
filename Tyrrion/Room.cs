@@ -28,14 +28,16 @@ public enum ConditionType {
     ObjectState
 }
 
-public enum Directions {
+public enum Directions
+{
     North,
-    South, 
+    South,
     East,
     West,
     Up,
     Down,
     Enter,
+    Exit,
     Southeast,
     Southwest,
     Northeast,

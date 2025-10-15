@@ -1,0 +1,24 @@
+{
+  "name": "West of House",
+  "identifier": "westOfHouse",
+  "objects": [
+
+  ],
+  "items": [
+    
+  ],
+  "description": "There's really nothing of note here. There are no doors, and all of the windows appear to be boarded tightly. There is a chimney, and smoke lazily puffs from it. To the west there appears to be an opening in the trees.",
+  "actions": {
+
+  },
+  "exits": [
+    {
+      "direction": "north",
+      "destination": "northOfHouse"
+    },
+    {
+      "direction": "west",
+      "destination": "forestPath"
+    }
+  ]
+}

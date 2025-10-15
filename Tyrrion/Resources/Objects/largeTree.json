@@ -1,0 +1,13 @@
+{
+  "name": "Large Tree",
+  "identifier": "largeTree",
+  "description": "There is a rather large tree with low branches in the clearing.",
+  "actions": {
+    "take": "You confidently attempt to wrap your arms around the massive trunk. They don't even make it halfway around, but you still strain with all your might to attempt to rip the tree from the ground. As anyone could guess, nothing happens.",
+    "look": "Owing to its size, you deduce that the tree has been here for a very long time. Etched into the trunk is a heart with the letters 'M + E'"
+  },
+  "capacity": 0,
+  "alternatives": [
+    "tree"
+  ]
+}

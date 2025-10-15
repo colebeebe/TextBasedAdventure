@@ -67,20 +67,62 @@ public class Parser {
             return context => Console.WriteLine("\n" + _responses[i] + "\n");
         }
 
-        if (words[0].ToLower() == "quit" || words[0].ToLower() == "exit") {
+        if (words[0].ToLower() == "quit") {
             if (words.Length == 1 || (words.Length == 2 && words[1].ToLower() == "game"))
             {
                 return context => { context.HasWon = true; };
             }
         }
-        
-        
-        if (words[0].ToLower() == "south") {
+
+        if (words[0].ToLower() == "south")
+        {
             return context => context.MoveRoom(Directions.South);
         }
-        else if (words[0].ToLower() == "north") {
+        else if (words[0].ToLower() == "north")
+        {
             return context => context.MoveRoom(Directions.North);
         }
+        else if (words[0].ToLower() == "east")
+        {
+            return context => context.MoveRoom(Directions.East);
+        }
+        else if (words[0].ToLower() == "west")
+        {
+            return context => context.MoveRoom(Directions.West);
+        }
+        else if (words[0].ToLower() == "up")
+        {
+            return context => context.MoveRoom(Directions.Up);
+        }
+        else if (words[0].ToLower() == "down")
+        {
+            return context => context.MoveRoom(Directions.Down);
+        }
+        else if (words[0].ToLower() == "northeast")
+        {
+            return context => context.MoveRoom(Directions.Northeast);
+        }
+        else if (words[0].ToLower() == "northwest")
+        {
+            return context => context.MoveRoom(Directions.Northwest);
+        }
+        else if (words[0].ToLower() == "southeast")
+        {
+            return context => context.MoveRoom(Directions.Southeast);
+        }
+        else if (words[0].ToLower() == "southwest")
+        {
+            return context => context.MoveRoom(Directions.Southwest);
+        }
+        else if (words[0].ToLower() == "enter")
+        {
+            return context => context.MoveRoom(Directions.Enter);
+        }
+        else if (words[0].ToLower() == "exit")
+        {
+            return context => context.MoveRoom(Directions.Exit);
+        }
+        
 
         if (words[0].ToLower() == "look") {
             if (words.Length == 3 && words[1] == "at") {

@@ -1,0 +1,24 @@
+{
+  "name": "Forest Path",
+  "identifier": "forestPath",
+  "objects": [
+   "largeTree"
+  ],
+  "items": [
+    
+  ],
+  "description": "You walk down the winding path. There is an opening to the south and west from where you are standing.",
+  "actions": {
+
+  },
+  "exits": [
+    {
+      "direction": "south",
+      "destination": "westOfHouse"
+    },
+    {
+      "direction": "up",
+      "destination": "upTheTree"
+    }
+  ]
+}
