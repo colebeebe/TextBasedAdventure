@@ -1,0 +1,24 @@
+{
+  "name": "East of House",
+  "identifier": "eastOfHouse",
+  "objects": [
+
+  ],
+  "items": [
+    
+  ],
+  "description": "Around this side of the house, there is not much to be seen. There are no windows or doors. To the southeast there appears to be a garden.",
+  "actions": {
+
+  },
+  "exits": [
+    {
+      "direction": "south",
+      "destination": "southOfHouse"
+    },
+    {
+      "direction": "north",
+      "destination": "northOfHouse"
+    }
+  ]
+}

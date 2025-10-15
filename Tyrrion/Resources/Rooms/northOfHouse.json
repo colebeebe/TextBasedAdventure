@@ -29,6 +29,10 @@
     {
       "direction": "west",
       "destination": "westOfHouse"
+    },
+    {
+      "direction": "east",
+      "destination": "eastOfHouse"
     }
   ]
 }

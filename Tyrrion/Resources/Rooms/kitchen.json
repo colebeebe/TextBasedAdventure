@@ -1,0 +1,31 @@
+{
+  "name": "Kitchen",
+  "identifier": "kitchen",
+  "objects": [
+   "window"
+  ],
+  "items": [
+    
+  ],
+  "description": "You enter the kitchen. There is a doorway to the north.",
+  "actions": {
+
+  },
+  "exits": [
+    {
+      "direction": "south",
+      "destination": "southOfHouse",
+      "conditions": [
+        {
+          "type": "objectState",
+          "object": "window",
+          "state": "open"
+        }
+      ]
+    },
+    {
+      "direction": "north",
+      "destination": "frontRoom"
+    }
+  ]
+}

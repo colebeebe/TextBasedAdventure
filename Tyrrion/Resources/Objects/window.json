@@ -1,0 +1,15 @@
+{
+  "name": "Window",
+  "identifier": "window",
+  "description": "One of the windows is slightly ajar, but its hinges seem to be very rusted in place.",
+  "actions": {
+   "look": "If you try hard enough, you should be able to pry it open."
+  },
+  "capacity": 0,
+  "alternatives": [
+  ],
+  "states": [
+   "open",
+   "closed"
+  ]
+}

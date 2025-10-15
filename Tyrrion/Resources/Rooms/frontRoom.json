@@ -8,7 +8,7 @@
   "items": [
 
   ],
-  "description": "You are in what appears to be the front receiving area of the house.",
+  "description": "You are in what appears to be the front receiving area of the house. There is a doorway on the south wall.",
   "actions": {
     "look": "The room is spacious and contains many portraits, but none seem to be too relevant, and you probably won't glean anything from studying any of them."
   },
@@ -23,6 +23,10 @@
           "state": "open"
         }
       ]
+    },
+    {
+      "direction": "south",
+      "destination": "kitchen"
     }
   ]
 }

@@ -19,6 +19,10 @@
     {
       "direction": "west",
       "destination": "forestPath"
+    },
+    {
+      "direction": "south",
+      "destination": "southOfHouse"
     }
   ]
 }
