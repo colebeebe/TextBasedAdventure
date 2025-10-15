@@ -199,8 +199,11 @@ public class GameContext {
     
     public void LookAt(string name) {
         var room = _gameRooms[_currentRoom];
+        // First we'll check the objects in the room
         if (room.Objects.Contains(name)) {
+            // Find the object's data
             if (_gameObjects.TryGetValue(name, out var obj)) {
+                // If there's a special look message, display it. Otherwise, let the player know there's nothing special to say
                 if (obj.Actions.TryGetValue("look", out var desc)) {
                     Console.WriteLine("\n" + desc + "\n");
                 }
@@ -208,17 +211,38 @@ public class GameContext {
                     Console.WriteLine($"\nThere doesn't seem to be anything of note about the {obj.Name.ToLower()}\n");
                 }
             }
+            // If we can't find the object's data but it is supposed to exist in the room, we have a major problem
             else {
                 Debug.Assert(true, "ERROR: Object does not exist in objects folder.");
             }
         }
+        // Then, check the items
+        else if (room.Items.Contains(name)) {
+            // Find the item data
+            if (_gameItems.TryGetValue(name, out var item)) {
+                // If there's a special message, display it. Otherwise, let the player know there's nothing special to say
+                if (item.Actions.TryGetValue("look", out var desc)) {
+                    Console.WriteLine("\n" + desc + "\n");
+                }
+                else {
+                    Console.WriteLine($"\nThere doesn't seem to be anything of note about the {item.Name.ToLower()}\n");
+                }
+            }
+            // If we can't find the item data but is supposed to exist in the room, we have a problem
+            else {
+                Debug.Assert(true, "ERROR: Item does not exist in items folder.");
+            }
+        }
+        // The item isn't in the room
         else {
             Console.WriteLine("\nI don't seem to be able to see that here.\n");
         }
     }
 
     static void WrapText(string text) {
-        int width = Console.WindowWidth - 1; // Subtract 1 for safety
+        // Subtract one for padding
+        int width = Console.WindowWidth - 1;
+
         string[] words = text.Split(' ');
         int currentLineLength = 0;
 
