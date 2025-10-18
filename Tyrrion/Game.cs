@@ -1,6 +1,6 @@
 ﻿namespace Tyrrion;
 
-public class Game {
+public static class Game {
 
     public static void Run() {
         PrintHeader();
@@ -11,12 +11,13 @@ public class Game {
         // Main game loop
         while (!context.HasWon) {
             Console.Write("> ");
-            string? input = Console.ReadLine();
+            var input = Console.ReadLine();
 
 
             if (input != null) {
-                string[] words = input.Split();
-                var action = parser.Parse(words);
+                var wordArray = input.Split();
+                var wordList = new List<string>(wordArray);
+                var action = parser.Parse(wordList);
                 action.Invoke(context);
             }
         }

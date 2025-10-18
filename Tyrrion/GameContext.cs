@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Transactions;
 
 namespace Tyrrion;
 
@@ -29,22 +30,9 @@ public class GameContext {
         LoadAllRooms();
         LoadAllItems();
         LoadAllObjects();
-
+        
         PrintRoom();
 
-    }
-
-    public void MoveRoom(Directions dir) {
-        var curr = _gameRooms[_currentRoom];
-        foreach (var exit in curr.Exits) {
-            if (exit.Direction == dir) {
-                if (_gameRooms.TryGetValue(exit.Destination, out Room? dest)) {
-                    _currentRoom = dest.Identifier;
-                }
-            }
-        }
-
-        PrintRoom();
     }
 
     private void LoadAllRooms()
@@ -64,7 +52,7 @@ public class GameContext {
         {
             try
             {
-                string jsonContent = File.ReadAllText(filepath);
+                var jsonContent = File.ReadAllText(filepath);
                 JsonDocument.Parse(jsonContent);
                 var room = JsonSerializer.Deserialize<Room>(jsonContent, options);
                 if (room != null)
@@ -96,7 +84,7 @@ public class GameContext {
         string[] files = Directory.GetFiles(path);
         foreach (var filepath in files) {
             try {
-                string jsonContent = File.ReadAllText(filepath);
+                var jsonContent = File.ReadAllText(filepath);
                 JsonDocument.Parse(jsonContent);
                 var item = JsonSerializer.Deserialize<Item>(jsonContent, options);
                 if (item != null) {
@@ -180,7 +168,7 @@ public class GameContext {
                 {
                     if (_gameObjects.TryGetValue(obj, out Object? roomObject))
                     {
-                        description += " " + roomObject?.Description;
+                        description += " " + roomObject.Description;
                     }
                 }
                 foreach (var item in curr.Items)
@@ -190,11 +178,26 @@ public class GameContext {
                         description += " " + roomItem.Description;
                     }
                 }
-                WrapText(description);
+                PrintWrappedText(description);
                 Console.WriteLine();
                 curr.Visited = true;
             }
         }
+    }
+    
+    public void MoveRoom(Directions dir) {
+        var curr = _gameRooms[_currentRoom];
+        foreach (var exit in curr.Exits) {
+            if (exit.Direction == dir) {
+                if (_gameRooms.TryGetValue(exit.Destination, out Room? dest)) {
+                    _currentRoom = dest.Identifier;
+                    PrintRoom();
+                    return;
+                }
+            }
+        }
+
+        Console.WriteLine("\nThat is not a direction you can go.\n");
     }
     
     public void LookAt(string name) {
@@ -205,13 +208,15 @@ public class GameContext {
             if (_gameObjects.TryGetValue(name, out var obj)) {
                 // If there's a special look message, display it. Otherwise, let the player know there's nothing special to say
                 if (obj.Actions.TryGetValue("look", out var desc)) {
-                    Console.WriteLine("\n" + desc + "\n");
+                    Console.WriteLine();
+                    PrintWrappedText(desc);
+                    Console.WriteLine();
                 }
                 else {
-                    Console.WriteLine($"\nThere doesn't seem to be anything of note about the {obj.Name.ToLower()}\n");
+                    Console.WriteLine($"\nThere doesn't seem to be anything of note about the {obj.Name.ToLower()}.\n");
                 }
             }
-            // If we can't find the object's data but it is supposed to exist in the room, we have a major problem
+            // If we can't find the object's data, but it is supposed to exist in the room, we have a major problem
             else {
                 Debug.Assert(true, "ERROR: Object does not exist in objects folder.");
             }
@@ -222,15 +227,27 @@ public class GameContext {
             if (_gameItems.TryGetValue(name, out var item)) {
                 // If there's a special message, display it. Otherwise, let the player know there's nothing special to say
                 if (item.Actions.TryGetValue("look", out var desc)) {
-                    Console.WriteLine("\n" + desc + "\n");
+                    Console.WriteLine();
+                    PrintWrappedText(desc);
+                    Console.WriteLine();
                 }
                 else {
-                    Console.WriteLine($"\nThere doesn't seem to be anything of note about the {item.Name.ToLower()}\n");
+                    Console.WriteLine($"\nThere doesn't seem to be anything of note about the {item.Name.ToLower()}.\n");
                 }
             }
             // If we can't find the item data but is supposed to exist in the room, we have a problem
             else {
                 Debug.Assert(true, "ERROR: Item does not exist in items folder.");
+            }
+        }
+        else if (_inventory.TryGetValue(name, out var item)) {
+            if (item.Actions.TryGetValue("look", out var desc)) {
+                Console.WriteLine();
+                PrintWrappedText(desc);
+                Console.WriteLine();
+            }
+            else {
+                Console.WriteLine($"\nThere doesn't seem to be anything of note about the {item.Name.ToLower()}.\n");
             }
         }
         // The item isn't in the room
@@ -239,12 +256,79 @@ public class GameContext {
         }
     }
 
-    static void WrapText(string text) {
-        // Subtract one for padding
-        int width = Console.WindowWidth - 1;
+    public void ShowInventory() {
+        if (_inventory.Count == 0) {
+            Console.WriteLine("\nYou aren't carrying anything\n");
+        }
+        else {
+            Console.WriteLine("\nYou are carrying:");
+            foreach (var item in _inventory) {
+                Console.WriteLine($"\t{item.Value.Name}");
+            }
 
-        string[] words = text.Split(' ');
-        int currentLineLength = 0;
+            Console.WriteLine();
+        }
+    }
+
+    public void Take(string itemIdentifier) {
+        var room = _gameRooms[_currentRoom];
+        if (itemIdentifier == "all") {
+            Console.WriteLine();
+            foreach (var itemString in room.Items) {
+                if (_gameItems.TryGetValue(itemString, out var item)) {
+                    _inventory.Add(item.Identifier, item);
+                    Console.WriteLine($"TAKEN: {item.Name}");
+                }
+                else {
+                    Debug.Assert(true, $"ERROR: {itemString} exists in room but not in game items.");
+                }
+            }
+
+            room.Items.Clear();
+            Console.WriteLine();
+        }
+        else if (room.Items.Contains(itemIdentifier)) {
+            if (_gameItems.TryGetValue(itemIdentifier, out var item)) {
+                room.Items.Remove(itemIdentifier);
+                _inventory.Add(item.Identifier, item);
+                Console.WriteLine("\nTAKEN.\n");
+            }
+            else {
+                Debug.Assert(true, $"ERROR: {itemIdentifier} exists in room but not in game items.");
+            }
+        }
+        else {
+            Console.WriteLine("\nI don't see that here.\n");
+        }
+    }
+
+    public void Drop(string itemIdentifier) {
+        var room = _gameRooms[_currentRoom];
+        if (itemIdentifier == "all") {
+            Console.WriteLine();
+            foreach (var item in _inventory) {
+                room.Items.Add(item.Value.Identifier);
+                Console.WriteLine($"DROPPED: {item.Value.Name}");
+            }
+            _inventory.Clear();
+            Console.WriteLine();
+        }
+        else if (_inventory.TryGetValue(itemIdentifier, out var item)) {
+            room.Items.Add(item.Identifier);
+            _inventory.Remove(item.Identifier);
+            Console.WriteLine("\nDROPPED.\n");
+        }
+        else {
+            Console.WriteLine($"\nYou are not holding that.\n");
+        }
+    }
+
+    private static void PrintWrappedText(string text) {
+        // Subtract one for padding
+        var width = Console.WindowWidth - 1;
+
+        var words = text.Split(' ');
+        var currentLineLength = 0;
 
         foreach (var word in words) {
             if (currentLineLength + word.Length + 1 > width) {
@@ -262,6 +346,52 @@ public class GameContext {
         }
 
         Console.WriteLine();
+    }
+
+    public void Read(string itemIdentifier) {
+        var room = _gameRooms[_currentRoom];
+        if (room.Objects.Contains(itemIdentifier)) {
+            if (_gameObjects.TryGetValue(itemIdentifier, out var obj)) {
+                if (obj.Actions.TryGetValue("read", out var message)) {
+                    Console.WriteLine();
+                    PrintWrappedText(message);
+                    Console.WriteLine();
+                }
+                else {
+                    Console.WriteLine($"\nThere is nothing to read on the {obj.Name.ToLower()}.\n");
+                }
+            }
+            else {
+                Debug.Assert(true, $"ERROR: Object in room but no matching game object exists.");
+            }
+        }
+        else if (room.Items.Contains(itemIdentifier)) {
+            if (_gameItems.TryGetValue(itemIdentifier, out var item)) {
+                Take(itemIdentifier);
+                if (item.Actions.TryGetValue("read", out var message)) {
+                    PrintWrappedText(message);
+                    Console.WriteLine();
+                }
+                else {
+                    Console.WriteLine($"There is nothing to read on the {item.Name.ToLower()}.\n");
+                }
+            }
+            else {
+                Debug.Assert(true, "ERROR: Item in room but no matching game item exists.");
+            }
+        }
+        else {
+            if(_inventory.TryGetValue(itemIdentifier, out var item)) {
+                if (item.Actions.TryGetValue("read", out var message)) {
+                    Console.WriteLine();
+                    PrintWrappedText(message);
+                    Console.WriteLine();
+                }
+                else {
+                    Console.WriteLine($"\nThere is nothing to read on the {item.Name.ToLower()}.\n");
+                }
+            }
+        }
     }
 
 }
