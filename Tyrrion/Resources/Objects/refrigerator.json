@@ -1,0 +1,16 @@
+{
+  "name": "Refrigerator",
+  "identifier": "refrigerator",
+  "description": "",
+  "actions": {
+    "look": "It doesn't seem to be connected to power, so you are nervous about the state of any food that might be inside it."
+  },
+  "capacity": 10,
+  "alternatives": [
+    "fridge"
+  ],
+  "states": [
+    "open",
+    "closed"
+  ]
+}

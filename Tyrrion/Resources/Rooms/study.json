@@ -1,0 +1,25 @@
+{
+  "name": "Study",
+  "identifier": "study",
+  "objects": [
+    "bookshelf",
+    "fireplace"
+  ],
+  "items": [
+    "book"
+  ],
+  "description": "You enter a study.",
+  "actions": {
+    "look": "The room is spacious and contains many portraits, but none seem to be too relevant, and you probably won't glean anything from studying any of them."
+  },
+  "exits": [
+    {
+      "direction": "north",
+      "destination": "frontRoom"
+    },
+    {
+      "direction": "east",
+      "destination": "kitchen"
+    }
+  ]
+}

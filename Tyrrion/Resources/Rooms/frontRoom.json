@@ -27,6 +27,10 @@
     {
       "direction": "south",
       "destination": "kitchen"
+    },
+    {
+      "direction": "west",
+      "destination": "study"
     }
   ]
 }

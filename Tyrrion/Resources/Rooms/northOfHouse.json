@@ -7,7 +7,7 @@
     "welcomeMat"
   ],
   "items": [
-    
+    "oldKey"
   ],
   "description": "You are on the north side of a large house that seems to be unoccupied.",
   "actions": {
@@ -17,6 +17,17 @@
   "exits": [
     {
       "direction": "south",
+      "destination": "frontRoom",
+      "conditions": [
+        {
+          "type": "objectState",
+          "object": "frontDoor",
+          "state": "open"
+        }
+      ]
+    },
+    {
+      "direction": "enter",
       "destination": "frontRoom",
       "conditions": [
         {

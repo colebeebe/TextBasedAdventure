@@ -1,0 +1,24 @@
+{
+  "name": "Garden",
+  "identifier": "garden",
+  "objects": [
+
+  ],
+  "items": [
+
+  ],
+  "description": "There are plenty of fruits and vegetables being grown in soft soil. A short distance to the south there is a shed.",
+  "actions": {
+
+  },
+  "exits": [
+    {
+      "direction": "south",
+      "destination": "outsideGardenShed"
+    },
+    {
+      "direction": "west",
+      "destination": "eastOfHouse"
+    }
+  ]
+}

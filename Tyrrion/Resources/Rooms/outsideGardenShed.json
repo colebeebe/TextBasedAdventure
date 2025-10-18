@@ -1,0 +1,28 @@
+{
+  "name": "Outside Garden Shed",
+  "identifier": "outsideGardenShed",
+  "objects": [
+
+  ],
+  "items": [
+
+  ],
+  "description": "You are on the outside of a garden shed. The door sways limply on its hinges.",
+  "actions": {
+
+  },
+  "exits": [
+    {
+      "direction": "north",
+      "destination": "garden"
+    },
+    {
+      "direction": "enter",
+      "destination": "insideGardenShed"
+    },
+    {
+      "direction": "south",
+      "destination": "insideGardenShed"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Old Painting of a Lady",
+  "identifier": "oldLadyPainting",
+  "description": "An old painting of a lady hangs on the wall. It seems to be well-fastened and not worth your time to try to remove from the wall.",
+  "actions": {
+    "take": "Try as you might, it seems that the painting is glued to the wall with a very strong adhesive.",
+    "look": "It's a very old and slightly fading painting of a woman, dressed entirely in black."
+  },
+  "capacity": 0,
+  "alternatives": [
+    "painting"
+  ],
+  "states": [
+  ]
+}

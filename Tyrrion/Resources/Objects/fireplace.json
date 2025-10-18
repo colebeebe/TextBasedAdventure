@@ -1,0 +1,17 @@
+{
+  "name": "Fireplace",
+  "identifier": "fireplace",
+  "description": "You're surprised to find the fireplace crackling, with the fire dancing on well-arranged logs.",
+  "actions": {
+    "look": "The flames are mesmerizing and you take a moment to appreciate the satisfying popping noises. While looking at the fire it's hard to believe that anything could go wrong in the world."
+  },
+  "capacity": -1,
+  "alternatives": [
+    "fire",
+    "flames"
+  ],
+  "states": [
+    "lit",
+    "extinguished"
+  ]
+}

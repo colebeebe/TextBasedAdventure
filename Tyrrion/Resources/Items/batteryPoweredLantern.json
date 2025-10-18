@@ -1,0 +1,14 @@
+{
+  "name": "Battery-Powered Lantern",
+  "identifier": "batteryPoweredLantern",
+  "description": "On a hook near the door hangs a lantern.",
+  "actions": {
+    "look": "It's a lantern that appears to be battery powered. On its base is a label.",
+    "read": "The label reads: Simply turn on and let the lantern illuminate your path! No flames necessary! Be warned, however: the battery won't last forever."
+  },
+  "capacity": 0,
+  "size": 3,
+  "alternatives": [
+    "lantern"
+  ]
+}

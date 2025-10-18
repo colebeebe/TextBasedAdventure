@@ -1,0 +1,15 @@
+{
+  "name": "Bookshelf",
+  "identifier": "bookshelf",
+  "description": "There is a large bookshelf along one of the walls, which is almost completely full with books.",
+  "actions": {
+    "look": "There are books of every kind on the shelf. One of them is strangely separated from the rest, and is written in latin."
+  },
+  "capacity": 0,
+  "alternatives": [
+  ],
+  "states": [
+    "open",
+    "closed"
+  ]
+}

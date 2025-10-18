@@ -1,10 +1,10 @@
 {
   "name": "Leaflet",
   "identifier": "leaflet",
-  "description": "A small leaflet. Looks like it would be useful to read!",
+  "description": "There is a small leaflet that looks like it would be useful to read!",
   "actions": {
-    "read": "*Text about Tyrrion goes here*",
-    "take": "Taken.",
+    "look": "It's a small leaflet that's neatly folded up. Judging by the large words on the front that say, 'READ ME! IMPORTANT INFORMATION INSIDE!' you're guessing that it might hold some important information, if you were to choose to read it.",
+    "read": "*** WELCOME TO THE WORLD OF TYRRION! ***\n       Wondrous adventures await!       \n\nFor help at any point, type HELP.\n\nTo interact with the world, try typing a command (LOOK AT MAILBOX, OPEN DOOR). You can move around the map by using the GO keyword, or by simply typing the direction you would like to go (for example, GO NORTH and NORTH are the same command).",
     "go": "As cool as it would be to blue skidoo into the leaflet, it's just not possible."
   },
   "capacity": 0,

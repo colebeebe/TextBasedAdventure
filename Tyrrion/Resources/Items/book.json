@@ -1,0 +1,14 @@
+{
+  "name": "Book",
+  "identifier": "book",
+  "description": "",
+  "actions": {
+    "look": "It's a book that seems to be an ancient text. There are strange pictographs and symbols that you don't recognize on the cover.",
+    "read": "You open to a random page and begin attempting to read the latin text. To nobody's surprise, nothing happens."
+  },
+  "capacity": 0,
+  "size": 2,
+  "alternatives": [
+
+  ]
+}

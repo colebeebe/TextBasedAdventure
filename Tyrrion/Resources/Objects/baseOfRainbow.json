@@ -1,0 +1,15 @@
+{
+  "name": "Base of Rainbow",
+  "identifier": "baseOfRainbow",
+  "description": "A faint shimmering rainbow extends out in front of you.",
+  "actions": {
+    "look": "There's something special about this rainbow, but you can't quite put your finger on what it may be."
+  },
+  "capacity": 0,
+  "alternatives": [
+  ],
+  "states": [
+    "solid",
+    "intangible"
+  ]
+}

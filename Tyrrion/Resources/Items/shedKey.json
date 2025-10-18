@@ -1,0 +1,13 @@
+{
+  "name": "Old Key",
+  "identifier": "oldKey",
+  "description": "An antique, rusty key is on the ground.",
+  "actions": {
+    "look": "It is a key that looks very old, but also somewhat important. You wonder why it would have been discarded in the first place."
+  },
+  "capacity": 0,
+  "size": 2,
+  "alternatives": [
+    "key"
+  ]
+}

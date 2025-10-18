@@ -1,0 +1,17 @@
+{
+  "name": "Grandfather Clock",
+  "identifier": "grandfatherClock",
+  "description": "A light ticking noise comes from a grandfather clock in the corner of the room.",
+  "actions": {
+    "take": "It seems to be much too heavy to carry on your own.",
+    "look": "The clock is adjusted to current time, and ticks away happily. There is a door along its front that presumably houses its internal mechanics."
+  },
+  "capacity": 5,
+  "alternatives": [
+    "clock"
+  ],
+  "states": [
+    "open",
+    "closed"
+  ]
+}

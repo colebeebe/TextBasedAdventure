@@ -2,12 +2,13 @@
   "name": "Kitchen",
   "identifier": "kitchen",
   "objects": [
-   "window"
+   "window",
+    "refrigerator"
   ],
   "items": [
     
   ],
-  "description": "You enter the kitchen. There is a doorway to the north.",
+  "description": "You enter the kitchen. There is a doorway to the north, and another on the west wall next to the refrigerator.",
   "actions": {
 
   },
@@ -26,6 +27,10 @@
     {
       "direction": "north",
       "destination": "frontRoom"
+    },
+    {
+      "direction": "west",
+      "destination": "study"
     }
   ]
 }

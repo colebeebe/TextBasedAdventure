@@ -5,7 +5,7 @@
 
   ],
   "items": [
-    
+    "leaflet"
   ],
   "description": "Around this side of the house, there is not much to be seen. There are no windows or doors. To the southeast there appears to be a garden.",
   "actions": {
@@ -19,6 +19,10 @@
     {
       "direction": "north",
       "destination": "northOfHouse"
+    },
+    {
+      "direction": "southeast",
+      "destination": "garden"
     }
   ]
 }

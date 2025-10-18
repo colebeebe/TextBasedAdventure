@@ -1,0 +1,24 @@
+{
+  "name": "Inside Garden Shed",
+  "identifier": "insideGardenShed",
+  "objects": [
+
+  ],
+  "items": [
+    "batteryPoweredLantern"
+  ],
+  "description": "You enter the old shed. You are surrounded by old tools, none of which seem all too useful.",
+  "actions": {
+
+  },
+  "exits": [
+    {
+      "direction": "north",
+      "destination": "outsideGardenShed"
+    },
+    {
+      "direction": "exit",
+      "destination": "outsideGardenShed"
+    }
+  ]
+}
